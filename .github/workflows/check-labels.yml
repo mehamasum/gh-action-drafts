@@ -1,0 +1,22 @@
+name: Remind devs to add labels to PR/Issue
+on:
+    issues:
+        types: [closed]
+    pull_request:
+        types: [closed]
+
+permissions: {}
+
+jobs:
+    add-comment:
+        runs-on: ubuntu-20.04
+        steps:
+            # TODO: skip if labels are already added in the current PR/Issue or the linked PRs/Issues
+            - name: make a comment
+              uses: peter-evans/create-or-update-comment@v4
+              with:
+                  issue-number: ${{ github.event.pull_request.number }}
+                  body: |
+                      Please add these following types of labels to the PR/Issue (not both!)
+                      - **Type**: One of `type: bug`, `type: enhancement`, `type: feature`, `type: others`)
+                      - **Area**: One of `area: customer`, `area: vendor`, `area: in-app`,  `area: QIT`, `area: host plans`, `area: WUM`
