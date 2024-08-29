@@ -20,8 +20,8 @@ jobs:
               with:
                   issue-number: ${{ github.event.pull_request.number }}
                   body: |
-                      Please add these following types of labels to the PR (skip if the linked Issue is already labeled!
-                      - **Type**: One of `type: bug`, `type: enhancement`, `type: feature`, `type: others`)
+                      Please add these following types of labels to the PR (skip if the linked Issue is already labeled!)
+                      - **Type**: One of `type: bug`, `type: enhancement`, `type: feature`, `type: others`
                       - **Area**: One of `area: customer`, `area: vendor`, `area: in-app`,  `area: QIT`, `area: host plans`, `area: WUM`
     add-comment-to-issue:
         runs-on: ubuntu-20.04
@@ -36,5 +36,5 @@ jobs:
                   issue-number: ${{ github.event.issue.number }}
                   body: |
                       Please add these following types of labels to the Issue (skip if the linked PR is already labeled!)
-                      - **Type**: One of `type: bug`, `type: enhancement`, `type: feature`, `type: others`)
+                      - **Type**: One of `type: bug`, `type: enhancement`, `type: feature`, `type: others`
                       - **Area**: One of `area: customer`, `area: vendor`, `area: in-app`,  `area: QIT`, `area: host plans`, `area: WUM`
