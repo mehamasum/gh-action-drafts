@@ -7,9 +7,27 @@ on:
 
 permissions: {}
 
+# TODO: skip if labels are already added in the current PR/Issue or the linked PRs/Issues
 jobs:
-    add-comment:
+    add-comment-to-pr:
         runs-on: ubuntu-20.04
+        if: ${{ github.event_name == 'pull_request' }}
+        permissions:
+            pull-requests: write
+        steps:
+            - name: make a comment
+              uses: peter-evans/create-or-update-comment@v4
+              with:
+                  issue-number: ${{ github.event.pull_request.number }}
+                  body: |
+                      Please add these following types of labels to the PR (skip if the linked Issue is already labeled!)
+                      - **Type**: One of `type: bug`, `type: enhancement`, `type: feature`, `type: others`)
+                      - **Area**: One of `area: customer`, `area: vendor`, `area: in-app`,  `area: QIT`, `area: host plans`, `area: WUM`
+    add-comment-to-issue:
+        runs-on: ubuntu-20.04
+        if: ${{ github.event_name == 'issues' }}
+        permissions:
+            issues: write
         steps:
             # TODO: skip if labels are already added in the current PR/Issue or the linked PRs/Issues
             - name: make a comment
@@ -17,6 +35,6 @@ jobs:
               with:
                   issue-number: ${{ github.event.pull_request.number }}
                   body: |
-                      Please add these following types of labels to the PR/Issue (not both!)
+                      Please add these following types of labels to the Issue (skip if the linked PR is already labeled!)
                       - **Type**: One of `type: bug`, `type: enhancement`, `type: feature`, `type: others`)
                       - **Area**: One of `area: customer`, `area: vendor`, `area: in-app`,  `area: QIT`, `area: host plans`, `area: WUM`
